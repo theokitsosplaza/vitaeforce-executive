@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VitaeForce — Executive Performance</title>
+<meta name="description" content="A private health system for leaders who run on empty. Rebuild your energy, clarity, and resilience in eight weeks — then keep it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111417;          /* near-black text */
+    --ink-soft:#484d54;     /* muted body — darkened for readability */
+    --paper:#F6F4EF;        /* warm off-white */
+    --paper-deep:#EDEAE2;   /* slightly deeper panel */
+    --forest:#1C2B24;       /* deep evergreen — the brand anchor */
+    --forest-soft:#2E4238;
+    --brass:#A9884E;        /* restrained brass accent, not gold hype */
+    --line:rgba(28,43,36,0.14);
+    --line-light:rgba(255,255,255,0.14);
+    --maxw:1180px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    font-weight:420;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--forest);color:var(--paper);}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:400;line-height:1.08;letter-spacing:-0.01em;}
+
+  .eyebrow{
+    font-size:12px;letter-spacing:0.28em;text-transform:uppercase;
+    color:var(--brass);font-weight:500;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 32px;
+    background:rgba(246,244,239,0.72);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:border-color .4s ease, padding .4s ease;
+  }
+  nav.scrolled{border-bottom-color:var(--line);padding:16px 32px;}
+  .brand{
+    font-family:'Fraunces',serif;font-size:20px;letter-spacing:0.02em;
+    color:var(--forest);font-weight:500;
+  }
+  .brand span{color:var(--brass);}
+  .nav-cta{
+    font-size:13px;letter-spacing:0.04em;text-decoration:none;
+    color:var(--forest);border:1px solid var(--forest);
+    padding:10px 20px;border-radius:100px;
+    transition:all .3s ease;font-weight:500;
+  }
+  .nav-cta:hover{background:var(--forest);color:var(--paper);}
+
+  /* ---------- HERO ---------- */
+  header{
+    position:relative;min-height:100vh;display:flex;align-items:center;
+    padding:140px 0 80px;overflow:hidden;
+  }
+  /* the signature: a slow-breathing radial "pulse" behind the words — vitality, not a stat block */
+  .pulse{
+    position:absolute;top:50%;right:-8%;transform:translateY(-50%);
+    width:min(720px,80vw);height:min(720px,80vw);
+    border-radius:50%;
+    background:radial-gradient(circle at center,
+      rgba(169,136,78,0.16) 0%,
+      rgba(28,43,36,0.06) 42%,
+      transparent 68%);
+    animation:breathe 7s ease-in-out infinite;
+    z-index:0;pointer-events:none;
+  }
+  @keyframes breathe{
+    0%,100%{transform:translateY(-50%) scale(1);opacity:.85;}
+    50%{transform:translateY(-50%) scale(1.09);opacity:1;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .pulse{animation:none;}
+  }
+  .hero-inner{position:relative;z-index:2;max-width:820px;}
+  .hero-eyebrow{margin-bottom:28px;opacity:0;animation:rise .9s ease .1s forwards;}
+  h1{
+    font-size:clamp(42px,7vw,84px);
+    margin-bottom:30px;
+    opacity:0;animation:rise 1s ease .25s forwards;
+  }
+  h1 em{font-style:italic;color:var(--forest-soft);}
+  .hero-sub{
+    font-size:clamp(17px,2vw,21px);color:var(--ink-soft);
+    max-width:560px;margin-bottom:44px;font-weight:400;
+    opacity:0;animation:rise 1s ease .45s forwards;
+  }
+  .hero-actions{
+    display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+    opacity:0;animation:rise 1s ease .6s forwards;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--forest);color:var(--paper);
+    text-decoration:none;font-size:15px;font-weight:500;letter-spacing:0.02em;
+    padding:17px 32px;border-radius:100px;
+    transition:transform .3s ease, background .3s ease;
+  }
+  .btn-primary:hover{background:var(--forest-soft);transform:translateY(-2px);}
+  .btn-primary .arrow{transition:transform .3s ease;}
+  .btn-primary:hover .arrow{transform:translateX(4px);}
+  .btn-text{
+    font-size:15px;color:var(--forest);text-decoration:none;font-weight:500;
+    border-bottom:1px solid var(--line);padding-bottom:3px;transition:border-color .3s;
+  }
+  .btn-text:hover{border-bottom-color:var(--forest);}
+
+  .hero-meta{
+    position:absolute;bottom:44px;left:0;right:0;z-index:2;
+    display:flex;gap:56px;align-items:baseline;justify-content:center;
+    text-align:center;
+    opacity:0;animation:rise 1s ease .8s forwards;
+  }
+  .hero-meta .m{display:flex;flex-direction:column;gap:4px;align-items:center;}
+  .hero-meta .m b{font-family:'Fraunces',serif;font-size:30px;font-weight:400;color:var(--forest);}
+  .hero-meta .m span{font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);}
+  @media(max-width:640px){.hero-meta{gap:32px;position:static;margin-top:56px;justify-content:center;}}
+
+  /* ---------- PROBLEM ---------- */
+  .problem{padding:120px 0;border-top:1px solid var(--line);}
+  .section-head{display:flex;gap:16px;align-items:baseline;margin-bottom:56px;}
+  .section-head .idx{font-family:'Fraunces',serif;font-size:15px;color:var(--brass);}
+  .problem h2{font-size:clamp(30px,4.4vw,52px);max-width:720px;}
+  .problem h2 em{font-style:italic;color:var(--ink-soft);}
+  .p-lines{margin-top:52px;display:grid;gap:0;}
+  .p-line{
+    display:flex;gap:28px;align-items:flex-start;
+    padding:26px 0;border-top:1px solid var(--line);
+    font-size:clamp(17px,2vw,20px);color:var(--ink);font-weight:400;
+  }
+  .p-line:last-child{border-bottom:1px solid var(--line);}
+  .p-line .q{font-family:'Fraunces',serif;font-size:14px;color:var(--brass);padding-top:6px;min-width:24px;}
+
+  /* ---------- SHIFT / SOLUTION (dark panel) ---------- */
+  .shift{background:var(--forest);color:var(--paper);padding:130px 0;position:relative;}
+  .shift .eyebrow{color:var(--brass);}
+  .shift h2{font-size:clamp(30px,4.6vw,54px);max-width:760px;margin:24px 0 0;color:var(--paper);}
+  .shift h2 em{font-style:italic;color:var(--brass);}
+  .shift-lead{color:rgba(246,244,239,0.7);max-width:540px;margin-top:28px;font-size:18px;font-weight:400;}
+  .pillars{
+    margin-top:80px;display:grid;grid-template-columns:repeat(2,1fr);
+    gap:1px;background:var(--line-light);border:1px solid var(--line-light);
+  }
+  .pillar{background:var(--forest);padding:44px 40px;}
+  .pillar .pn{font-family:'Fraunces',serif;font-size:14px;color:var(--brass);letter-spacing:0.04em;}
+  .pillar h3{font-size:24px;margin:20px 0 12px;color:var(--paper);}
+  .pillar p{color:rgba(246,244,239,0.66);font-size:15.5px;font-weight:400;}
+  @media(max-width:760px){.pillars{grid-template-columns:1fr;}}
+
+  /* ---------- METHOD / TIMELINE ---------- */
+  .method{padding:130px 0;}
+  .method h2{font-size:clamp(30px,4.4vw,52px);max-width:640px;}
+  .method h2 em{font-style:italic;color:var(--ink-soft);}
+  .steps{margin-top:72px;display:grid;gap:0;}
+  .step{
+    display:grid;grid-template-columns:90px 1fr;gap:36px;
+    padding:38px 0;border-top:1px solid var(--line);align-items:start;
+  }
+  .step:last-child{border-bottom:1px solid var(--line);}
+  .step .snum{font-family:'Fraunces',serif;font-size:44px;color:var(--paper-deep);
+    -webkit-text-stroke:1px var(--brass);color:transparent;line-height:1;}
+  .step h3{font-size:23px;margin-bottom:10px;}
+  .step p{color:var(--ink-soft);font-size:16px;font-weight:400;max-width:520px;}
+  .step .when{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--brass);margin-bottom:14px;display:block;}
+  @media(max-width:640px){.step{grid-template-columns:60px 1fr;gap:20px;}.step .snum{font-size:32px;}}
+
+  /* ---------- PROMISE / GUARANTEE ---------- */
+  .promise{background:var(--paper-deep);padding:120px 0;}
+  .promise-inner{max-width:760px;}
+  .promise h2{font-size:clamp(28px,4vw,46px);margin:24px 0 24px;}
+  .promise h2 em{font-style:italic;color:var(--forest-soft);}
+  .promise p{color:var(--ink-soft);font-size:18px;font-weight:400;max-width:600px;}
+
+  /* ---------- COACH ---------- */
+  .coach{padding:130px 0;}
+  .coach-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:center;}
+  .coach-visual{
+    aspect-ratio:4/5;border-radius:4px;position:relative;overflow:hidden;
+    background:linear-gradient(155deg,var(--forest) 0%,var(--forest-soft) 100%);
+    display:flex;align-items:flex-end;padding:36px;
+  }
+  .coach-visual::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 30% 20%,rgba(169,136,78,0.22),transparent 55%);
+  }
+  .coach-visual .cv-mark{
+    position:relative;font-family:'Fraunces',serif;color:rgba(246,244,239,0.9);
+    font-size:15px;letter-spacing:0.04em;
+  }
+  .coach-visual .cv-mark b{display:block;font-size:30px;font-weight:400;margin-top:4px;color:var(--paper);}
+  .coach h2{font-size:clamp(28px,3.6vw,46px);margin:22px 0 26px;}
+  .coach h2 em{font-style:italic;color:var(--ink-soft);}
+  .coach p{color:var(--ink-soft);font-size:16.5px;font-weight:400;margin-bottom:20px;max-width:560px;}
+  .coach .principles{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;}
+  .coach .principles span{
+    font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+    border:1px solid var(--line);padding:9px 16px;border-radius:100px;color:var(--forest);
+  }
+  @media(max-width:820px){.coach-grid{grid-template-columns:1fr;gap:44px;}.coach-visual{max-width:340px;}}
+
+  /* ---------- CLOSE ---------- */
+  .close{background:var(--forest);color:var(--paper);padding:140px 0;text-align:center;position:relative;overflow:hidden;}
+  .close .pulse2{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:640px;height:640px;border-radius:50%;
+    background:radial-gradient(circle,rgba(169,136,78,0.14),transparent 66%);
+    animation:breathe 7s ease-in-out infinite;pointer-events:none;
+  }
+  .close-inner{position:relative;z-index:2;max-width:720px;margin:0 auto;}
+  .close .eyebrow{color:var(--brass);}
+  .close h2{font-size:clamp(32px,5vw,62px);color:var(--paper);margin:24px 0 22px;}
+  .close h2 em{font-style:italic;color:var(--brass);}
+  .close p{color:rgba(246,244,239,0.68);font-size:18px;font-weight:400;max-width:480px;margin:0 auto 44px;}
+  .btn-light{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--paper);color:var(--forest);
+    text-decoration:none;font-size:15.5px;font-weight:500;letter-spacing:0.02em;
+    padding:18px 36px;border-radius:100px;transition:transform .3s ease;
+  }
+  .btn-light:hover{transform:translateY(-2px);}
+  .btn-light .arrow{transition:transform .3s ease;}
+  .btn-light:hover .arrow{transform:translateX(4px);}
+  .close .note{margin-top:26px;font-size:13px;letter-spacing:0.08em;color:rgba(246,244,239,0.5);text-transform:uppercase;}
+
+  /* ---------- APPLICATION FORM ---------- */
+  .apply{
+    max-width:520px;margin:52px auto 0;text-align:left;
+    display:flex;flex-direction:column;gap:26px;
+  }
+  .field{display:flex;flex-direction:column;gap:10px;}
+  .field label{
+    font-size:13px;letter-spacing:0.06em;color:rgba(246,244,239,0.72);font-weight:500;
+  }
+  .field input,.field textarea{
+    background:rgba(246,244,239,0.04);
+    border:1px solid rgba(246,244,239,0.16);
+    border-radius:6px;padding:15px 18px;
+    font-family:'Inter',sans-serif;font-size:15.5px;font-weight:420;color:var(--paper);
+    transition:border-color .3s ease, background .3s ease;width:100%;resize:vertical;
+  }
+  .field input::placeholder,.field textarea::placeholder{color:rgba(246,244,239,0.34);}
+  .field input:focus,.field textarea:focus{
+    outline:none;border-color:var(--brass);background:rgba(246,244,239,0.07);
+  }
+  .apply-btn{
+    margin-top:8px;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--paper);color:var(--forest);border:none;cursor:pointer;
+    font-family:'Inter',sans-serif;font-size:15.5px;font-weight:500;letter-spacing:0.02em;
+    padding:18px 32px;border-radius:100px;transition:transform .3s ease, opacity .3s ease;
+  }
+  .apply-btn:hover{transform:translateY(-2px);}
+  .apply-btn:disabled{opacity:0.55;cursor:default;transform:none;}
+  .apply-btn .arrow{transition:transform .3s ease;}
+  .apply-btn:hover .arrow{transform:translateX(4px);}
+  .apply-note{
+    text-align:center;margin-top:6px;
+    font-size:12px;letter-spacing:0.08em;color:rgba(246,244,239,0.5);text-transform:uppercase;
+  }
+  .apply-success{max-width:520px;margin:52px auto 0;text-align:center;animation:rise .8s ease forwards;}
+  .apply-success .tick{
+    width:56px;height:56px;border-radius:50%;margin:0 auto 24px;
+    border:1px solid var(--brass);color:var(--brass);
+    display:flex;align-items:center;justify-content:center;font-size:24px;
+  }
+  .apply-success h3{font-size:28px;color:var(--paper);margin-bottom:14px;}
+  .apply-success p{color:rgba(246,244,239,0.68);font-size:16.5px;font-weight:420;max-width:420px;margin:0 auto;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--forest);color:rgba(246,244,239,0.5);padding:36px 0;border-top:1px solid var(--line-light);}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  .foot-inner .brand{color:var(--paper);}
+  footer .fl{font-size:12.5px;letter-spacing:0.06em;}
+
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand">VITAE<span>FORCE</span></div>
+  <a href="#book" class="nav-cta">Request a call</a>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="pulse"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-eyebrow eyebrow">Executive Performance &nbsp;·&nbsp; Private 1:1</div>
+      <h1>You run the company.<br>But lately, you're<br><em>running on empty.</em></h1>
+      <p class="hero-sub">A private health system for leaders whose energy has become the weak link. Rebuild your clarity, stamina, and resilience in eight weeks — and keep it, on your own terms.</p>
+      <div class="hero-actions">
+        <a href="#book" class="btn-primary">Request a private call <span class="arrow">→</span></a>
+        <a href="#method" class="btn-text">See how it works</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap hero-meta">
+    <div class="m"><b>8</b><span>Week Reset</span></div>
+    <div class="m"><b>1:1</b><span>Private Only</span></div>
+    <div class="m"><b>∞</b><span>A System You Keep</span></div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="wrap">
+    <div class="section-head"><span class="idx">01</span><span class="eyebrow">The weak link</span></div>
+    <h2>You've optimized the business. <em>Your body is the one system you've left unmanaged.</em></h2>
+    <div class="p-lines">
+      <div class="p-line"><span class="q">—</span><div>The 3pm crash arrives before the day's hardest decisions do.</div></div>
+      <div class="p-line"><span class="q">—</span><div>You're sharp in the boardroom and foggy everywhere else.</div></div>
+      <div class="p-line"><span class="q">—</span><div>You know what to do. You don't have a system that makes it automatic.</div></div>
+      <div class="p-line"><span class="q">—</span><div>Every plan you've tried assumed you had time you don't have.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHIFT -->
+<section class="shift">
+  <div class="wrap">
+    <span class="eyebrow">02 · The approach</span>
+    <h2>Not another program to keep up with. <em>A system built around the life you already lead.</em></h2>
+    <p class="shift-lead">We don't add discipline to your day. We install structure that makes performance the default — designed for your schedule, your travel, your load.</p>
+    <div class="pillars">
+      <div class="pillar reveal">
+        <div class="pn">01</div><h3>Energy, engineered</h3>
+        <p>Training and nutrition built for sustained output and mental sharpness — not for the mirror.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pn">02</div><h3>Built for your calendar</h3>
+        <p>Three to four focused sessions. Structured around board meetings, flights, and real demands.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pn">03</div><h3>Handled, not homework</h3>
+        <p>The complexity is mine. You follow a clear plan and make decisions with a full tank.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pn">04</div><h3>Yours to keep</h3>
+        <p>The goal isn't dependence on a coach. It's a system you own and run for the rest of your life.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="method" id="method">
+  <div class="wrap">
+    <div class="section-head"><span class="idx">03</span><span class="eyebrow">The eight weeks</span></div>
+    <h2>A clear sequence. <em>No guesswork, no noise.</em></h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="snum">01</div>
+        <div>
+          <span class="when">Week Zero · Private Call</span>
+          <h3>We assess the real picture</h3>
+          <p>A confidential conversation about your energy, your schedule, your history, and what "performing at your peak" actually means for you.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="snum">02</div>
+        <div>
+          <span class="when">Weeks 1–2 · Foundation</span>
+          <h3>We build your system</h3>
+          <p>A training and nutrition structure engineered for your body and calendar. Nothing generic. Everything deliberate.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="snum">03</div>
+        <div>
+          <span class="when">Weeks 3–8 · Execution</span>
+          <h3>We hold the standard</h3>
+          <p>Weekly check-ins, direct access, and precise adjustments. You feel the shift in energy and clarity before the eight weeks are done.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="snum">04</div>
+        <div>
+          <span class="when">Beyond · The Roadmap</span>
+          <h3>You keep the system</h3>
+          <p>You leave with a roadmap you own — the structure to sustain this without needing anyone to hold it together for you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise">
+  <div class="wrap promise-inner reveal">
+    <span class="eyebrow">04 · The standard</span>
+    <h2>Selective by necessity. <em>This only works at close range.</em></h2>
+    <p>Real 1:1 work means a limited number of people at any time. This isn't scarcity as a tactic — it's the only way the work is done properly. If we're not the right fit, you'll hear it from me first.</p>
+  </div>
+</section>
+
+<!-- COACH -->
+<section class="coach">
+  <div class="wrap coach-grid">
+    <div class="coach-visual reveal">
+      <div class="cv-mark">Coach<b>Chris</b></div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">05 · Behind VitaeForce</span>
+      <h2>Direct, precise, <em>and honest to a fault.</em></h2>
+      <p>VitaeForce was built on a simple conviction: discipline creates freedom, and health is the foundation everything else is built on. Not hype. Not dependency. A system that returns you to yourself — stronger, sharper, and self-sufficient.</p>
+      <p>The work is done at close range, with a small number of people who are serious about performing at their peak for the long run.</p>
+      <div class="principles">
+        <span>1:1 Only</span>
+        <span>No Hype</span>
+        <span>Results First</span>
+        <span>A System You Own</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSE / APPLICATION -->
+<section class="close" id="book">
+  <div class="pulse2"></div>
+  <div class="wrap close-inner">
+    <span class="eyebrow">The next step</span>
+    <h2>Your energy is a <em>business asset.</em><br>Start managing it.</h2>
+    <p>Applications are reviewed personally. If it's a fit, Chris reaches out within 48 hours to arrange a private call.</p>
+
+    <form class="apply" id="applyForm" novalidate>
+      <input type="hidden" name="source" id="srcField" value="direct">
+
+      <div class="field">
+        <label for="fName">Full name</label>
+        <input type="text" id="fName" name="name" autocomplete="name" required placeholder="Your name">
+      </div>
+
+      <div class="field">
+        <label for="fEmail">Email</label>
+        <input type="email" id="fEmail" name="email" autocomplete="email" required placeholder="you@company.com">
+      </div>
+
+      <div class="field">
+        <label for="fRole">Role &amp; company</label>
+        <input type="text" id="fRole" name="role" required placeholder="e.g. Founder &amp; CEO, [Company]">
+      </div>
+
+      <div class="field">
+        <label for="fWhy">What's driving this decision now?</label>
+        <textarea id="fWhy" name="motivation" rows="3" required placeholder="What's changed, and what you're looking to solve."></textarea>
+      </div>
+
+      <button type="submit" class="apply-btn" id="applyBtn">
+        Submit application <span class="arrow">→</span>
+      </button>
+      <div class="apply-note">Confidential · Reviewed personally · Limited availability</div>
+    </form>
+
+    <div class="apply-success" id="applySuccess" hidden>
+      <div class="tick">✓</div>
+      <h3>Application received.</h3>
+      <p>Chris reviews each application personally. If it's a fit, you'll hear from him within 48 hours to arrange your private call.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="brand">VITAEFORCE</div>
+    <div class="fl">© 2026 VitaeForce · Executive Performance</div>
+  </div>
+</footer>
+
+<script>
+  // nav shadow on scroll
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>40);});
+
+  // scroll reveal
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // capture UTM source (e.g. from Instagram bio link) so we know where the lead came from
+  (function(){
+    const params=new URLSearchParams(location.search);
+    const src=params.get('utm_source')||params.get('source')||'direct';
+    const medium=params.get('utm_medium')||'';
+    const combined=medium?src+' / '+medium:src;
+    const f=document.getElementById('srcField');
+    if(f)f.value=combined;
+  })();
+
+  // form submission
+  const form=document.getElementById('applyForm');
+  const btn=document.getElementById('applyBtn');
+  const success=document.getElementById('applySuccess');
+  form.addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    if(!form.checkValidity()){form.reportValidity();return;}
+    btn.disabled=true;
+    btn.innerHTML='Submitting…';
+
+    const data=Object.fromEntries(new FormData(form).entries());
+    // add a readable subject for the notification email Formspree sends
+    data._subject='New Executive Application — '+(data.name||'Unknown')+' ('+(data.source||'direct')+')';
+
+    /* ─────────────────────────────────────────────────────────────
+       SUBMISSION ENDPOINT — replace the URL below with your form
+       service endpoint (Formspree / Fillout / Tally) that forwards
+       to Airtable. The `data` object already includes `source`.
+       Until then this runs in demo mode and just shows the success state.
+       ───────────────────────────────────────────────────────────── */
+    const ENDPOINT='https://formspree.io/f/maqrypzr';
+
+    try{
+      if(ENDPOINT){
+        await fetch(ENDPOINT,{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Accept':'application/json'},
+          body:JSON.stringify(data)
+        });
+      }
+      form.hidden=true;
+      success.hidden=false;
+      success.scrollIntoView({behavior:'smooth',block:'center'});
+    }catch(err){
+      btn.disabled=false;
+      btn.innerHTML='Submit application <span class="arrow">→</span>';
+      alert('Something went wrong. Please try again, or reach out directly.');
+    }
+  });
+</script>
+</body>
+</html>
