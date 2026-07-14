@@ -424,8 +424,9 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  /* Offset anchor jumps so the sticky nav doesn't cover the section top */
-  #top, #problem, #method, #coach, #apply { scroll-margin-top: 80px; }
+  /* Offset anchor jumps so the sticky nav doesn't cover the section top.
+     #apply is excluded: its CTAs scroll to the very bottom of the page instead. */
+  #top, #problem, #method, #coach { scroll-margin-top: 80px; }
   body { background: #f3efe6; -webkit-font-smoothing: antialiased; }
   ::selection { background: #16281f; color: #f3efe6; }
   a { color: #16281f; text-decoration: none; }
@@ -452,7 +453,7 @@
       <a href="#problem" style="font-size: 13.5px; letter-spacing: 0.04em; color: rgba(232,227,214,0.72); display: none;" class="vf-navlink">The Problem</a>
       <a href="#method" style="font-size: 13.5px; letter-spacing: 0.04em; color: rgba(232,227,214,0.72);" class="vf-navlink">The Method</a>
       <a href="#coach" style="font-size: 13.5px; letter-spacing: 0.04em; color: rgba(232,227,214,0.72);" class="vf-navlink">The Coach</a>
-      <a href="#apply" style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #e8e3d6; border: 1px solid rgba(208,170,108,0.6); padding: 11px 20px; border-radius: 2px; transition: all 0.3s;" class="vf-btn-outline">Request a call</a>
+      <a href="#apply" data-scroll-bottom style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #e8e3d6; border: 1px solid rgba(208,170,108,0.6); padding: 11px 20px; border-radius: 2px; transition: all 0.3s;" class="vf-btn-outline">Request a call</a>
     </nav>
   </header>
 
@@ -464,7 +465,7 @@
         <h1 style="font-family: 'Spectral', serif; font-weight: 400; font-size: clamp(42px, 6.6vw, 92px); line-height: 1.02; letter-spacing: -0.015em; color: #f3efe6; max-width: 17ch;">The company has your full attention. Your energy hasn't.</h1>
         <p style="font-size: clamp(17px, 1.5vw, 21px); line-height: 1.7; color: rgba(232,227,214,0.78); max-width: 52ch; margin-top: 34px; font-weight: 300;">A private, eight-week programme that rebuilds your energy and clarity, and leaves you a system you own.</p>
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 46px;">
-          <a href="#apply" style="font-size: 14px; letter-spacing: 0.06em; background: #d0aa6c; color: #16281f; padding: 17px 36px; border-radius: 2px; transition: background 0.3s;" class="vf-btn-gold">Request a private call</a>
+          <a href="#apply" data-scroll-bottom style="font-size: 14px; letter-spacing: 0.06em; background: #d0aa6c; color: #16281f; padding: 17px 36px; border-radius: 2px; transition: background 0.3s;" class="vf-btn-gold">Request a private call</a>
           <a href="#method" style="font-size: 14px; letter-spacing: 0.04em; color: #f3efe6; border-bottom: 1px solid rgba(208,170,108,0.6); padding-bottom: 3px;">See how it works</a>
         </div>
         <p style="font-size: 13px; letter-spacing: 0.02em; color: rgba(232,227,214,0.5); margin-top: 44px; font-weight: 300;">By application and referral. A small number of clients at a time.</p>
@@ -686,6 +687,19 @@
       nodes.forEach(function (n) { var r = n.getBoundingClientRect(); if (r.top < vh * 0.95) { reveal(n); io.unobserve(n); } });
     });
     setTimeout(function () { nodes.forEach(function (n) { n.style.opacity = '1'; }); }, 1400);
+  })();
+</script>
+<script>
+  (function () {
+    // CTA links (nav "Request a call", hero "Request a private call") scroll
+    // to the very bottom so the full apply section and footer are in view.
+    var links = document.querySelectorAll('[data-scroll-bottom]');
+    Array.prototype.forEach.call(links, function (el) {
+      el.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      });
+    });
   })();
 </script>
 <script>
