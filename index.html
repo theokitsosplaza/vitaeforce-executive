@@ -640,7 +640,7 @@
           </div>
           <p id="vf-apply-error" role="alert" style="display:none; font-size: 13px; color: #e6a5a0; font-weight: 300; margin: -4px 0 0;"></p>
           <button type="submit" class="vf-btn-gold" style="margin-top: 8px; background: #d0aa6c; color: #16281f; border: none; padding: 16px; border-radius: 2px; font-family: inherit; font-size: 14px; letter-spacing: 0.06em; cursor: pointer; transition: background 0.3s;">Request a private call</button>
-          <p style="font-size: 12.5px; color: rgba(232,227,214,0.5); text-align: center; font-weight: 300;">Every enquiry is read personally. Replies within two business days.</p>
+          <p style="font-size: 12.5px; color: rgba(232,227,214,0.5); text-align: center; font-weight: 300;">Every enquiry is read personally.</p>
         </form>
         <div id="applySuccess" hidden style="text-align: center; padding: 36px 12px; animation: vfFade 0.7s cubic-bezier(0.22,0.61,0.36,1) both;">
           <div style="width: 64px; height: 64px; margin: 0 auto 24px; border-radius: 50%; border: 1.5px solid rgba(208,170,108,0.5); background: rgba(208,170,108,0.08); display: flex; align-items: center; justify-content: center;">
@@ -649,7 +649,7 @@
             </svg>
           </div>
           <h3 style="font-family: 'Spectral', serif; font-weight: 500; font-size: 26px; color: #f3efe6; margin-bottom: 14px; letter-spacing: -0.01em;">Received.</h3>
-          <p style="font-size: 15.5px; line-height: 1.7; color: rgba(232,227,214,0.72); font-weight: 300; max-width: 34ch; margin: 0 auto;">Every application is read personally. If it's a fit, you'll hear from me within two business days.</p>
+          <p style="font-size: 15.5px; line-height: 1.7; color: rgba(232,227,214,0.72); font-weight: 300; max-width: 34ch; margin: 0 auto;">Every application is read personally. If it's a fit, you'll hear from me soon.</p>
         </div>
       </div>
     </div>
@@ -706,6 +706,12 @@
       }).then(function (res) {
         if (res.ok) {
           form.style.display = 'none';
+          var container = form.parentElement;
+          if (container) {
+            container.style.border = 'none';
+            container.style.background = 'transparent';
+            container.style.padding = '0';
+          }
           success.hidden = false;
           success.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
