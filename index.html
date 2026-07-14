@@ -424,6 +424,8 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  /* Offset anchor jumps so the sticky nav doesn't cover the section top */
+  #top, #problem, #method, #coach, #apply { scroll-margin-top: 80px; }
   body { background: #f3efe6; -webkit-font-smoothing: antialiased; }
   ::selection { background: #16281f; color: #f3efe6; }
   a { color: #16281f; text-decoration: none; }
